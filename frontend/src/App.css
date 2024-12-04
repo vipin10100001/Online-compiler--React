@@ -1,0 +1,121 @@
+/* General styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* App container */
+.app {
+  padding: 20px;
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.header button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  font-size: 14px;
+}
+
+/* Dark mode styles */
+.dark-mode {
+  background-color: #121212;
+  color: white;
+}
+
+.dark-mode .header button {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Light mode styles */
+.light-mode {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.light-mode .header button {
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Content area */
+.content {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  height: calc(100vh - 100px); /* Adjust height to fit screen */
+}
+
+/* Editor and output containers */
+.editor-container,
+.output-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #272822;
+  border-radius: 8px;
+  padding: 10px;
+  height: 100%;
+}
+
+.output-container {
+  background-color: #333;
+  color: #f8f8f2;
+}
+
+.light-mode .editor-container {
+  background-color: #e0e0e0;
+}
+
+.light-mode .output-container {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* Editor */
+textarea {
+  resize: none;
+  height: calc(100% - 40px); /* Adjust height for dropdown and button */
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  font-size: 14px;
+}
+
+/* Output section */
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-y: auto;
+  flex: 1;
+}
