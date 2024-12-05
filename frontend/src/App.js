@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 const defaultCode = {
   JavaScript: `console.log("Hello, World!");`,
@@ -8,15 +8,15 @@ const defaultCode = {
 };
 
 function App() {
-  const [language, setLanguage] = useState('JavaScript');
+  const [language, setLanguage] = useState("JavaScript");
   const [code, setCode] = useState(defaultCode[language]);
-  const [output, setOutput] = useState('');
-  const [theme, setTheme] = useState('dark');
+  const [output, setOutput] = useState("");
+  const [isDarkMode, setIsDarkMode] = useState(true); // Theme state
 
   const handleLanguageChange = (event) => {
     const selectedLanguage = event.target.value;
     setLanguage(selectedLanguage);
-    setCode(defaultCode[selectedLanguage] || '');
+    setCode(defaultCode[selectedLanguage] || "");
   };
 
   const handleCodeChange = (event) => {
@@ -26,9 +26,9 @@ function App() {
   const runCode = async () => {
     try {
       const response = await fetch(`http://localhost:5010/run`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           language,
@@ -41,24 +41,23 @@ function App() {
       }
 
       const result = await response.json();
-      setOutput(result.output || 'No output');
+      setOutput(result.output || "No output");
     } catch (error) {
       setOutput(`Error executing code: ${error.message}`);
     }
   };
 
   const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-    document.body.style.background = theme === 'dark' 
-      ? 'linear-gradient(135deg, #e2e8f0, #edf2f7)' 
-      : 'linear-gradient(135deg, #1a202c, #2d3748)';
-    document.body.style.color = theme === 'dark' ? '#1a202c' : '#e2e8f0';
+    setIsDarkMode(!isDarkMode);
   };
 
   return (
-    <div className="App">
-      <button className="theme-toggle" onClick={toggleTheme}>
-        {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+    <div
+      className={`App ${isDarkMode ? "dark-mode" : "light-mode"}`}
+      style={{ height: "100vh" }}
+    >
+      <button onClick={toggleTheme} className="theme-toggle">
+        {isDarkMode ? "Light Mode" : "Dark Mode"}
       </button>
       <h1>Online Compiler</h1>
       <div className="compiler-container">
@@ -74,12 +73,19 @@ function App() {
             <option value="Python">Python</option>
             <option value="Cpp">C++</option>
           </select>
-          <textarea value={code} onChange={handleCodeChange} />
-          <button onClick={runCode}>Run Code</button>
+          <textarea
+            value={code}
+            onChange={handleCodeChange}
+            rows="12"
+            className="code-input"
+          />
+          <button onClick={runCode} className="run-code-btn">
+            Run Code
+          </button>
         </div>
         <div className="output-section">
-          <h3>Output:</h3>
-          <p>{output || 'Run the code to see the output here.'}</p>
+          <h2>Output:</h2>
+          <div className="output-box">{output || "Run the code to see the output here."}</div>
         </div>
       </div>
     </div>

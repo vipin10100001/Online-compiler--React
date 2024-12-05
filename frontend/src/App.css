@@ -1,104 +1,112 @@
-/* App.css */
-
-body {
+/* Global Styles */
+body, html {
   margin: 0;
-  font-family: 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #1a202c, #2d3748);
-  color: #e2e8f0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
 }
 
-h1 {
-  text-align: center;
-  margin: 20px 0;
-  font-size: 2.5rem;
-}
-
-.compiler-container {
-  max-width: 1200px;
-  margin: 0 auto;
+/* Themes */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   padding: 20px;
-  background: #2d3748;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode {
+  background-color: #1a202c;
+  color: #f7fafc;
+}
+
+.light-mode {
+  background-color: #f7fafc;
+  color: #1a202c;
+}
+
+/* Compiler Container */
+.compiler-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  min-height: calc(100vh - 120px); /* Ensure it fills most of the screen */
+  background: var(--container-bg, #2d3748);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
 }
 
-.input-section, .output-section {
-  flex: 1;
-  min-width: 300px;
+/* Input Section */
+.input-section {
+  flex: 1 1 48%;
   display: flex;
   flex-direction: column;
-  background: #1a202c;
-  border: 1px solid #4a5568;
-  border-radius: 12px;
-  padding: 20px;
+  gap: 15px;
 }
 
-textarea, select {
-  width: 100%;
-  margin-top: 10px;
+.language-select {
   padding: 10px;
-  background: #2d3748;
-  border: 1px solid #4a5568;
-  border-radius: 8px;
-  color: #e2e8f0;
-  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid var(--input-border, #718096);
+  background-color: var(--input-bg, #1a202c);
+  color: inherit;
 }
 
-textarea {
-  height: 200px;
-  resize: none;
+textarea.code-input {
+  flex-grow: 1;
+  border: 1px solid var(--input-border, #718096);
+  border-radius: 6px;
+  padding: 10px;
+  background-color: var(--input-bg, #1a202c);
+  color: inherit;
+  font-family: monospace;
 }
 
-button {
-  margin-top: 10px;
-  padding: 12px;
-  background: #38a169;
+.run-code-btn {
+  padding: 10px 20px;
+  background-color: #38a169;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s;
 }
 
-button:hover {
-  background: #2f855a;
+.run-code-btn:hover {
+  background-color: #2f855a;
 }
 
+/* Output Section */
 .output-section {
-  display: flex;
-  flex-direction: column;
+  flex: 1 1 48%;
 }
 
-.output-section p {
-  background: #2d3748;
+.output-box {
   padding: 10px;
-  border-radius: 8px;
-  margin-top: 10px;
-  overflow-x: auto;
-  height: 200px;
+  border: 1px solid var(--input-border, #718096);
+  border-radius: 6px;
+  background-color: var(--output-bg, #1a202c);
+  color: inherit;
+  min-height: 200px;
+  font-family: monospace;
+  white-space: pre-wrap;
 }
 
+/* Theme Toggle Button */
 .theme-toggle {
-  margin: 10px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #4a5568;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .compiler-container {
-    flex-direction: column;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  textarea {
-    height: 150px;
-  }
+.theme-toggle:hover {
+  background-color: #2d3748;
 }
