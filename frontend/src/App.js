@@ -5,19 +5,18 @@ const defaultCode = {
   JavaScript: `console.log("Hello, World!");`,
   Python: `print("Hello, World!")`,
   Cpp: `#include <iostream>\nusing namespace std;\n\nint main() {\n  cout << "Hello, World!" << endl;\n  return 0;\n}`,
-  Java: `public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello, World!");\n  }\n}`,
-  Ruby: `puts "Hello, World!"`,
-  Go: `package main\nimport "fmt"\nfunc main() {\n  fmt.Println("Hello, World!")\n}`,
 };
 
 function App() {
   const [language, setLanguage] = useState('JavaScript');
   const [code, setCode] = useState(defaultCode[language]);
   const [output, setOutput] = useState('');
+  const [theme, setTheme] = useState('dark');
 
   const handleLanguageChange = (event) => {
-    setLanguage(event.target.value);
-    setCode(defaultCode[event.target.value]);
+    const selectedLanguage = event.target.value;
+    setLanguage(selectedLanguage);
+    setCode(defaultCode[selectedLanguage] || '');
   };
 
   const handleCodeChange = (event) => {
@@ -26,7 +25,6 @@ function App() {
 
   const runCode = async () => {
     try {
-      // Send the code to your backend for execution (use the backend URL)
       const response = await fetch(`http://localhost:5010/run`, {
         method: 'POST',
         headers: {
@@ -38,19 +36,36 @@ function App() {
         }),
       });
 
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+
       const result = await response.json();
-      setOutput(result.output || 'Error executing code');
+      setOutput(result.output || 'No output');
     } catch (error) {
-      setOutput('Error executing code');
+      setOutput(`Error executing code: ${error.message}`);
     }
+  };
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+    document.body.style.background = theme === 'dark' 
+      ? 'linear-gradient(135deg, #e2e8f0, #edf2f7)' 
+      : 'linear-gradient(135deg, #1a202c, #2d3748)';
+    document.body.style.color = theme === 'dark' ? '#1a202c' : '#e2e8f0';
   };
 
   return (
     <div className="App">
+      <button className="theme-toggle" onClick={toggleTheme}>
+        {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+      </button>
       <h1>Online Compiler</h1>
       <div className="compiler-container">
         <div className="input-section">
+          <label htmlFor="language-select">Select Language:</label>
           <select
+            id="language-select"
             value={language}
             onChange={handleLanguageChange}
             className="language-select"
@@ -58,27 +73,15 @@ function App() {
             <option value="JavaScript">JavaScript</option>
             <option value="Python">Python</option>
             <option value="Cpp">C++</option>
-            <option value="Java">Java</option>
-            <option value="Ruby">Ruby</option>
-            <option value="Go">Go</option>
           </select>
-
-          <textarea
-            className="code-editor"
-            value={code}
-            onChange={handleCodeChange}
-            rows="10"
-            cols="50"
-          ></textarea>
+          <textarea value={code} onChange={handleCodeChange} />
+          <button onClick={runCode}>Run Code</button>
         </div>
-
         <div className="output-section">
           <h3>Output:</h3>
-          <div className="output-box">{output}</div>
+          <p>{output || 'Run the code to see the output here.'}</p>
         </div>
       </div>
-
-      <button onClick={runCode} className="run-btn">Run Code</button>
     </div>
   );
 }

@@ -1,121 +1,104 @@
-/* General styles */
+/* App.css */
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  transition: background-color 0.3s, color 0.3s;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #1a202c, #2d3748);
+  color: #e2e8f0;
 }
 
-/* App container */
-.app {
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 2.5rem;
+}
+
+.compiler-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #2d3748;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.input-section, .output-section {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  background: #1a202c;
+  border: 1px solid #4a5568;
+  border-radius: 12px;
   padding: 20px;
 }
 
-/* Header styles */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.header h1 {
-  margin: 0;
-}
-
-.header button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #4caf50;
-  color: white;
-  font-size: 14px;
-}
-
-/* Dark mode styles */
-.dark-mode {
-  background-color: #121212;
-  color: white;
-}
-
-.dark-mode .header button {
-  background-color: #f4f4f4;
-  color: #333;
-}
-
-/* Light mode styles */
-.light-mode {
-  background-color: #f4f4f4;
-  color: #333;
-}
-
-.light-mode .header button {
-  background-color: #4caf50;
-  color: white;
-}
-
-/* Content area */
-.content {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  height: calc(100vh - 100px); /* Adjust height to fit screen */
-}
-
-/* Editor and output containers */
-.editor-container,
-.output-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: #272822;
-  border-radius: 8px;
-  padding: 10px;
-  height: 100%;
-}
-
-.output-container {
-  background-color: #333;
-  color: #f8f8f2;
-}
-
-.light-mode .editor-container {
-  background-color: #e0e0e0;
-}
-
-.light-mode .output-container {
-  background-color: #f4f4f4;
-  color: #333;
-}
-
-/* Editor */
-textarea {
-  resize: none;
-  height: calc(100% - 40px); /* Adjust height for dropdown and button */
+textarea, select {
   width: 100%;
-  border: none;
-  border-radius: 5px;
+  margin-top: 10px;
   padding: 10px;
-  font-size: 14px;
+  background: #2d3748;
+  border: 1px solid #4a5568;
+  border-radius: 8px;
+  color: #e2e8f0;
+  font-size: 1rem;
+}
+
+textarea {
+  height: 200px;
+  resize: none;
 }
 
 button {
   margin-top: 10px;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #4caf50;
+  padding: 12px;
+  background: #38a169;
   color: white;
-  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-/* Output section */
-pre {
-  white-space: pre-wrap;
-  word-wrap: break-word;
+button:hover {
+  background: #2f855a;
+}
+
+.output-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.output-section p {
+  background: #2d3748;
   padding: 10px;
-  border-radius: 5px;
-  overflow-y: auto;
-  flex: 1;
+  border-radius: 8px;
+  margin-top: 10px;
+  overflow-x: auto;
+  height: 200px;
+}
+
+.theme-toggle {
+  margin: 10px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+@media (max-width: 768px) {
+  .compiler-container {
+    flex-direction: column;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  textarea {
+    height: 150px;
+  }
 }

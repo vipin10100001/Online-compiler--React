@@ -9,11 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 5001; // Change the port number
-
+const PORT = 5010; // Match the frontend port expectation
 
 // Route for executing code
-app.post("/execute", (req, res) => {
+app.post("/run", (req, res) => {
   const { code, language } = req.body;
 
   if (!code || !language) {
@@ -24,7 +23,7 @@ app.post("/execute", (req, res) => {
   let command;
 
   // Create file and set execution command based on language
-  switch (language) {
+  switch (language.toLowerCase()) {
     case "javascript":
       fileName = "code.js";
       fs.writeFileSync(fileName, code);
@@ -51,7 +50,7 @@ app.post("/execute", (req, res) => {
   exec(command, (error, stdout, stderr) => {
     // Clean up the file after execution
     fs.unlinkSync(fileName);
-    if (language === "cpp" && fs.existsSync("./code")) {
+    if (language.toLowerCase() === "cpp" && fs.existsSync("./code")) {
       fs.unlinkSync("./code");
     }
 
