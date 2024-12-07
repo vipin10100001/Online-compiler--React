@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 const defaultCode = {
@@ -11,7 +11,15 @@ function App() {
   const [language, setLanguage] = useState("JavaScript");
   const [code, setCode] = useState(defaultCode[language]);
   const [output, setOutput] = useState("");
-  const [isDarkMode, setIsDarkMode] = useState(true); // Theme state
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  // Load theme preference from localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setIsDarkMode(savedTheme === "dark");
+    }
+  }, []);
 
   const handleLanguageChange = (event) => {
     const selectedLanguage = event.target.value;
@@ -48,7 +56,9 @@ function App() {
   };
 
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
+    const newTheme = !isDarkMode;
+    setIsDarkMode(newTheme);
+    localStorage.setItem("theme", newTheme ? "dark" : "light");
   };
 
   return (
