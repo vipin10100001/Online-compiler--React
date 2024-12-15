@@ -62,14 +62,11 @@ function App() {
   };
 
   return (
-    <div
-      className={`App ${isDarkMode ? "dark-mode" : "light-mode"}`}
-      style={{ height: "100vh" }}
-    >
+    <div className={`App ${isDarkMode ? "dark-mode" : "light-mode"}`}>
       <button onClick={toggleTheme} className="theme-toggle">
-        {isDarkMode ? "Light Mode" : "Dark Mode"}
+        {isDarkMode ? "☀ Light Mode" : "🌙 Dark Mode"}
       </button>
-      <h1>Online Compiler</h1>
+      <h1 className="app-title">Online Compiler</h1>
       <div className="compiler-container">
         <div className="input-section">
           <label htmlFor="language-select">Select Language:</label>
