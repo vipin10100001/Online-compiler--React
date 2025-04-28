@@ -35,7 +35,10 @@ This project serves as a strong foundation for learning how online code executio
 ---
 
 ## 🗂️ Project Structure
-/src ├── App.js # Main application component ├── App.css # Styling for the app /public ├── index.html # Base HTML template
+/src 
+    ├── App.js # Main application component 
+    ├── App.css # Styling for the app /public 
+    ├── index.html # Base HTML template
 
 yaml
 Copy
