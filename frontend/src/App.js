@@ -13,7 +13,6 @@ function App() {
   const [output, setOutput] = useState("");
   const [isDarkMode, setIsDarkMode] = useState(true);
 
-  // Load theme preference from localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
@@ -38,10 +37,7 @@ function App() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          language,
-          code,
-        }),
+        body: JSON.stringify({ language, code }),
       });
 
       if (!response.ok) {
@@ -63,13 +59,16 @@ function App() {
 
   return (
     <div className={`App ${isDarkMode ? "dark-mode" : "light-mode"}`}>
-      <button onClick={toggleTheme} className="theme-toggle">
-        {isDarkMode ? "☀ Light Mode" : "🌙 Dark Mode"}
-      </button>
-      <h1 className="app-title">Online Compiler</h1>
-      <div className="compiler-container">
+      <header className="header">
+        <h1 className="app-title">Online Code Compiler</h1>
+        <button onClick={toggleTheme} className="theme-toggle">
+          {isDarkMode ? "☀ Light Mode" : "🌙 Dark Mode"}
+        </button>
+      </header>
+
+      <main className="compiler-container">
         <div className="input-section">
-          <label htmlFor="language-select">Select Language:</label>
+          <label htmlFor="language-select" className="section-label">Select Language:</label>
           <select
             id="language-select"
             value={language}
@@ -80,21 +79,23 @@ function App() {
             <option value="Python">Python</option>
             <option value="Cpp">C++</option>
           </select>
+
           <textarea
             value={code}
             onChange={handleCodeChange}
-            rows="12"
             className="code-input"
           />
+
           <button onClick={runCode} className="run-code-btn">
-            Run Code
+            ▶ Run Code
           </button>
         </div>
+
         <div className="output-section">
-          <h2>Output:</h2>
+          <h2 className="section-label">Output:</h2>
           <div className="output-box">{output || "Run the code to see the output here."}</div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
