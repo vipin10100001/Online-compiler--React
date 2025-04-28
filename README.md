@@ -1,8 +1,18 @@
+## 📖 About
 
-# Online Compiler - React
+**Online Compiler - React** is a lightweight web application that allows users to write, edit, and execute code directly from their browser.  
+It supports popular languages like **JavaScript**, **Python**, and **C++** (basic support) and provides a simple, user-friendly coding experience with real-time output display.
 
-An elegant and full-screen **Online Code Compiler** built using **React.js**, with support for **JavaScript**, **Python**, and **C++**.  
-Easily switch between **Light Mode** and **Dark Mode**, write code, and run it instantly — all in a sleek, professional interface.
+This project is built using **React.js** for the frontend and expects a basic **Node.js** backend server to run and return the results of the code execution.
+
+The main goal of this project is to offer a **minimalist**, **responsive**, and **full-screen** coding environment without external dependencies like heavy code editors or paid APIs.  
+It also features a **Light/Dark mode toggle**, making it comfortable for both day and night coding sessions.
+
+This project serves as a strong foundation for learning how online code execution platforms work and can be extended with features like:
+- Secure server-side code execution
+- Syntax highlighting
+- Multi-language support
+- User authentication and code saving
 
 ---
 
