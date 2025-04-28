@@ -127,5 +127,25 @@ Edit
 {
   "output": "Execution result here"
 }
+
+### 📌 Future Improvements
+Secure backend execution (sandbox environment).
+
+Add more language support (Java, C#, Go).
+
+Code editor enhancements (syntax highlighting, line numbers).
+
+Save and download code snippets.
+
+User authentication and history of executed codes.
+
+### 📜 License
+This project is open-sourced under the MIT License.
+
+### ✨ Connect
+Made with ❤️ using React.js
+
+### 🔥 Happy Coding!
+
 ---
 
