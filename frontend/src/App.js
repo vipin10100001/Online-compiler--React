@@ -32,7 +32,7 @@ function App() {
 
   const runCode = async () => {
     try {
-      const response = await fetch(`http://localhost:5010/run`, {
+      const response = await fetch(`https://online-compiler-react.onrender.com/run`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
