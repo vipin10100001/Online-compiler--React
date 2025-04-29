@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { exec } = require("child_process");
 const fs = require("fs");
+const path = require("path");
 
 const app = express();
 
@@ -9,7 +10,15 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 5010; // Match the frontend port expectation
+const PORT = process.env.PORT || 5010;
+
+// Serve React frontend build (for deployment)
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+// Serve React index.html on root
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
+});
 
 // Route for executing code
 app.post("/run", (req, res) => {
@@ -22,7 +31,6 @@ app.post("/run", (req, res) => {
   let fileName;
   let command;
 
-  // Create file and set execution command based on language
   switch (language.toLowerCase()) {
     case "javascript":
       fileName = "code.js";
@@ -46,10 +54,13 @@ app.post("/run", (req, res) => {
       return res.status(400).json({ error: "Unsupported language" });
   }
 
-  // Execute the command
   exec(command, (error, stdout, stderr) => {
-    // Clean up the file after execution
-    fs.unlinkSync(fileName);
+    // Clean up the source code file
+    if (fs.existsSync(fileName)) {
+      fs.unlinkSync(fileName);
+    }
+
+    // For C++, also remove compiled binary
     if (language.toLowerCase() === "cpp" && fs.existsSync("./code")) {
       fs.unlinkSync("./code");
     }
@@ -60,6 +71,11 @@ app.post("/run", (req, res) => {
 
     res.json({ output: stdout || "No output" });
   });
+});
+
+// Handle all other routes (React SPA support)
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
 });
 
 // Start the server
