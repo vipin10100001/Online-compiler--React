@@ -5,6 +5,7 @@ const defaultCode = {
   JavaScript: `console.log("Hello, World!");`,
   Python: `print("Hello, World!")`,
   Cpp: `#include <iostream>\nusing namespace std;\n\nint main() {\n  cout << "Hello, World!" << endl;\n  return 0;\n}`,
+  Java: `public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello, World!");\n  }\n}`
 };
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
             <option value="JavaScript">JavaScript</option>
             <option value="Python">Python</option>
             <option value="Cpp">C++</option>
+            <option value="Java">Java</option>
           </select>
 
           <textarea

@@ -44,6 +44,12 @@ app.post("/run", (req, res) => {
       command = `python3 ${fileName}`;
       break;
 
+      case  "Java":
+        fileName="Main.java";
+        fs.writeFileSync(fileName, code);
+        command = `javac ${fileName} && java Main`;
+      break;
+      
     case "cpp":
       fileName = "code.cpp";
       fs.writeFileSync(fileName, code);
