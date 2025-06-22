@@ -44,12 +44,12 @@ app.post("/run", (req, res) => {
       command = `python3 ${fileName}`;
       break;
 
-      case  "Java":
-        fileName="Main.java";
-        fs.writeFileSync(fileName, code);
-        command = `javac ${fileName} && java Main`;
+    case "java":
+      fileName = "Main.java";
+      fs.writeFileSync(fileName, code);
+      command = `javac ${fileName} && java Main`;
       break;
-      
+
     case "cpp":
       fileName = "code.cpp";
       fs.writeFileSync(fileName, code);
@@ -66,9 +66,12 @@ app.post("/run", (req, res) => {
       fs.unlinkSync(fileName);
     }
 
-    // For C++, also remove compiled binary
+    // Clean up compiled files
     if (language.toLowerCase() === "cpp" && fs.existsSync("./code")) {
       fs.unlinkSync("./code");
+    }
+    if (language.toLowerCase() === "java" && fs.existsSync("Main.class")) {
+      fs.unlinkSync("Main.class");
     }
 
     if (error) {
@@ -79,7 +82,7 @@ app.post("/run", (req, res) => {
   });
 });
 
-// Handle all other routes (React SPA support)
+// SPA fallback
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/build", "index.html"));
 });
